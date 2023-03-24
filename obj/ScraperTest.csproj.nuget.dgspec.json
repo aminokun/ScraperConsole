@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Amine\\Source\\Repos\\ScraperTest\\ScraperTest.csproj": {}
+    "C:\\Users\\amine\\Source\\Repos\\ScraperConsole\\ScraperTest.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Amine\\Source\\Repos\\ScraperTest\\ScraperTest.csproj": {
+    "C:\\Users\\amine\\Source\\Repos\\ScraperConsole\\ScraperTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Amine\\Source\\Repos\\ScraperTest\\ScraperTest.csproj",
+        "projectUniqueName": "C:\\Users\\amine\\Source\\Repos\\ScraperConsole\\ScraperTest.csproj",
         "projectName": "ScraperTest",
-        "projectPath": "C:\\Users\\Amine\\Source\\Repos\\ScraperTest\\ScraperTest.csproj",
-        "packagesPath": "C:\\Users\\Amine\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Amine\\Source\\Repos\\ScraperTest\\obj\\",
+        "projectPath": "C:\\Users\\amine\\Source\\Repos\\ScraperConsole\\ScraperTest.csproj",
+        "packagesPath": "C:\\Users\\amine\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\amine\\Source\\Repos\\ScraperConsole\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Amine\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\amine\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -70,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

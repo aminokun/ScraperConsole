@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Globalization;
-using Scraper;
 using System.Formats.Asn1;
 using MySql.Data.MySqlClient;
+using System.Collections;
+using System.Web;
 
 namespace scraper
 {
@@ -14,7 +15,7 @@ namespace scraper
     {
         static void Main(string[] args)
         {
-            string url = "https://books.toscrape.com/catalogue/category/books/travel_2/index.html";
+            string url = "https://books.toscrape.com/catalogue/category/books/sports-and-games_17/index.html";
             var links = GetBookLinks(url);
             List<Book> books = GetBooks(links);
             ExportToDatabase(books);
@@ -22,25 +23,20 @@ namespace scraper
 
         private static void ExportToDatabase(List<Book> books)
         {
-            string connectionString = "Server=192.168.178.27:3306;Database=Books;Uid=root;Pwd=123Bruh21!;";
 
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            string connectionString = "Server=192.168.178.27,3306;Database=Books;Uid=root;Pwd=123Bruh21!;";
+
+            MySqlConnection connection = new MySqlConnection(connectionString);
+            connection.Open();
+
+            foreach (var item in books)
             {
-                connection.Open();
-
-                foreach (var book in books)
-                {
-                    string sql = "INSERT INTO Books (Title, Price) VALUES (@Title, @Price)";
-                    MySqlCommand command = new MySqlCommand(sql, connection);
-                    command.Parameters.AddWithValue("@Title", book.Title);
-                    command.Parameters.AddWithValue("@Price", book.Price);
-
-                    command.ExecuteNonQuery();
-                }
-
-                connection.Close();
-
+                MySqlCommand command = new MySqlCommand("INSERT INTO books (Title, Price) VALUES (@Title, @Price)", connection);
+                command.Parameters.AddWithValue("@Title", item.Title);
+                command.Parameters.AddWithValue("@Price", item.Price);
+                command.ExecuteNonQuery();
             }
+            connection.Close();
 
         }
 
@@ -51,7 +47,7 @@ namespace scraper
             {
                 var doc = GetDocument(link);
                 var book = new Book();
-                book.Title = doc.DocumentNode.SelectSingleNode("//h1").InnerText;
+                book.Title = HttpUtility.HtmlDecode(doc.DocumentNode.SelectSingleNode("//h1").InnerText);
                 var xpath = "//*[@class=\"col-sm-6 product_main\"]/*[@class=\"price_color\"]";
                 var price_raw = doc.DocumentNode.SelectSingleNode(xpath).InnerText;
                 book.Price = ExtractPrice(price_raw);
@@ -66,8 +62,12 @@ namespace scraper
             var m = reg.Match(raw);
             if (!m.Success)
                 return 0;
-            return Convert.ToDouble(m.Value);
+
+            var decimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+            var priceStr = m.Value.Replace(".", decimalSeparator).Replace(",", decimalSeparator);
+            return Convert.ToDouble(priceStr);
         }
+
 
         static List<string> GetBookLinks(string url)
         {
@@ -91,5 +91,7 @@ namespace scraper
             HtmlDocument doc = web.Load(url);
             return doc;
         }
+
+
     }
 }
