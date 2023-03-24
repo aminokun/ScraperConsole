@@ -24,7 +24,7 @@ namespace scraper
         private static void ExportToDatabase(List<Book> books)
         {
 
-            string connectionString = "Server=192.168.178.27,3306;Database=Books;Uid=root;Pwd=123Bruh21!;";
+            string connectionString = "Server=192.168.178.27,3306;Database=Books;Uid=Scraper;Pwd=123Scraper21!;";
 
             MySqlConnection connection = new MySqlConnection(connectionString);
             connection.Open();
